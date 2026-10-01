@@ -2,7 +2,7 @@ import json
 tasks = []
 
 def add_task():
-    task_name = input("Enter your Task: ")
+    task_name = input("Enter your task: ")
     task = {
         "name" : task_name,
         "completed" : False
@@ -11,12 +11,12 @@ def add_task():
         print("Task cannot be empty")
     else:
         tasks.append(task)
-        print("Task added successfully")
+        print("Task added successfully!")
         save_file()
 
 def view_task():
     if len(tasks) == 0:
-        print("No task found")
+        print("No tasks found.")
     else:
         for x, task in enumerate(tasks, start=1):
             if task["completed"]:
@@ -25,26 +25,26 @@ def view_task():
                 print(x, task["name"],"❌")
             
 def delete_task():
-    print("Total tasks are given")
+    print("Current tasks:")
     for x, task in enumerate(tasks, start=1):
         print(x, task["name"])
     try:        
-        erase = int(input("Please enter task no. for deletion"))
+        erase = int(input("Please enter the task number to delete:"))
     except ValueError:
-        print("invalid keyword")
+        print("Invalid input.")
         return
     if erase <= len(tasks) and erase >= 1:    
         del tasks[erase - 1]
         save_file()
-        print("Task deleted successfully.\nRemaining tasks are follows:")
+        print("Task deleted successfully.\nRemaining tasks:")
         for x, task in enumerate(tasks, start=1):
             print(x, task["name"])    
     else:
-        print("invalid keyword")
+        print("Invalid input.")
 
 def mark_as_complete():
         if not tasks:
-            print("no task found")
+            print("No tasks found.")
         else:
             for x, task in enumerate(tasks, start=1):
                 if task["completed"]:
@@ -52,16 +52,16 @@ def mark_as_complete():
                 else:
                     print(x, task["name"],"❌")
             try:        
-                task_complete = int(input("Please enter task no for task completion: "))
+                task_complete = int(input("Please enter the task number to mark as complete: "))
             except ValueError:
-                print("invalid keyword")
+                print("Invalid input.")
                 return    
             if task_complete >=1 and task_complete <= len(tasks):
                 tasks[task_complete-1]["completed"] = True
-                print("Task mark completed successfully")
+                print("Task marked as completed successfully!")
                 save_file()
             else:
-                print("invalid input")
+                print("Invalid input.")
 
 def save_file():
     with open("To_do_list.txt", "w") as f:
@@ -73,7 +73,7 @@ def load_file():
         with open("To_do_list.txt", "r") as f:
             tasks = json.load(f)            
     except FileNotFoundError:
-          print("no task available")   
+          print("No tasks available.")   
     
 load_file()
 while True:
@@ -87,7 +87,7 @@ while True:
     try:
         choice = int(input("Select given option: "))
     except ValueError:
-        print("Invalid keyword")
+        print("Invalid input.")
         continue
     if choice == 1:
         add_task()
@@ -102,7 +102,7 @@ while True:
         mark_as_complete()    
 
     elif choice == 5:
-        print("Good bye")
+        print("Goodbye!")
         break        
     else:
-        print("invalid selection, please try again")
+        print("Invalid selection. Please try again.")
